@@ -4,6 +4,7 @@ Quora Question Pairs - Source code package.
 
 from .preprocessing import (
     tokenize,
+    preprocess_text,
     word_match_share,
     jaccard_similarity,
     common_word_count,
@@ -31,6 +32,7 @@ from .evaluation import (
 __all__ = [
     # preprocessing
     "tokenize",
+    "preprocess_text",
     "word_match_share",
     "jaccard_similarity",
     "common_word_count",

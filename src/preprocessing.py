@@ -6,14 +6,22 @@ import re
 import numpy as np
 import pandas as pd
 from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 
-# Initialize stopwords
+# Initialize stopwords and lemmatizer
 try:
     stops = set(stopwords.words("english"))
 except LookupError:
     import nltk
     nltk.download("stopwords")
     stops = set(stopwords.words("english"))
+
+try:
+    lemmatizer = WordNetLemmatizer()
+except LookupError:
+    import nltk
+    nltk.download("wordnet")
+    lemmatizer = WordNetLemmatizer()
 
 
 def tokenize(text):
@@ -24,6 +32,30 @@ def tokenize(text):
     text = str(text).lower()
     text = re.sub(r"[^a-z0-9\s]", " ", text)
     return [w for w in text.split() if w and w not in stops]
+
+
+def preprocess_text(text):
+    """
+    Advanced text preprocessing with lemmatization.
+    Steps:
+    1. Convert to lowercase
+    2. Remove punctuation and special characters
+    3. Tokenize
+    4. Remove stopwords
+    5. Apply lemmatization
+    
+    Args:
+        text: Raw text string
+        
+    Returns:
+        str: Preprocessed and lemmatized text
+    """
+    text = str(text).lower()  # Convert to lowercase
+    text = re.sub(r'[^a-z0-9\s]', '', text)  # Remove punctuation
+    tokens = text.split()  # Tokenization
+    tokens = [w for w in tokens if w not in stops]  # Remove stop words
+    tokens = [lemmatizer.lemmatize(w) for w in tokens]  # Lemmatization
+    return " ".join(tokens)
 
 
 def word_match_share(row):
