@@ -56,6 +56,8 @@ See `requirements.txt` for the complete list. Key dependencies:
 - **scikit-learn**: Machine learning algorithms and metrics
 - **matplotlib/seaborn**: Data visualization
 - **nltk**: Natural language processing (tokenization, stopwords)
+- **xgboost/lightgbm**: Gradient boosting models
+- **torch/transformers**: Deep learning and BERT-based models
 
 ## Installation
 
@@ -76,11 +78,24 @@ import nltk
 nltk.download('stopwords')
 ```
 
+4. Check the lightweight runner:
+```bash
+python run_project.py
+```
+
 ## Usage
+
+### Lightweight runner
+```bash
+python run_project.py
+python run_project.py --check-data
+python run_project.py --smoke-test
+```
+The script does not execute the full notebooks; it only prints the recommended order or runs a tiny feature-engineering sanity check.
 
 ### Load Data and Engineer Features
 ```python
-from src import load_data, engineer_features
+from src import load_data, engineer_features, get_question_frequency_features
 
 # Load datasets
 df_train, df_test = load_data('data/quora_question_pairs_train.csv.zip', 
@@ -88,6 +103,7 @@ df_train, df_test = load_data('data/quora_question_pairs_train.csv.zip',
 
 # Engineer features
 df_train = engineer_features(df_train)
+df_train = get_question_frequency_features(df_train)
 ```
 
 ### Train a Model
@@ -96,7 +112,7 @@ from src import RandomForestModel
 from sklearn.model_selection import train_test_split
 
 # Prepare features and target
-X = df_train[['q1_len', 'q2_len', 'len_diff', 'common_words', 'jaccard_sim', 'word_match_share']]
+X = df_train[['q1_len', 'q2_len', 'len_diff', 'common_words', 'jaccard_sim', 'word_match_share', 'max_q_freq', 'min_q_freq']]
 y = df_train['is_duplicate']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -168,11 +184,26 @@ The project includes several baseline and advanced models:
 
 ## Results
 
+### Model Metrics
+
+| Model | Log Loss | F1-score |
+| --- | --- | --- |
+| Baseline Logistic Regression | 0.42 | 0.69 |
+| Bag of Words + Logistic Regression | 0.60 | 0.61 |
+| TF-IDF + Logistic Regression | 0.62 | 0.61 |
+| BERT Embeddings + Logistic Regression | 0.57 | 0.55 |
+| LSTM | 0.50 | 0.69 |
+| XGBoost (tuned) | 0.33 | 0.76 |
+| LightGBM (tuned) | 0.33 | 0.75 |
+| Fine-tuned BERT | 0.42 | 0.81 |
+| Weighted Ensemble | 0.28 | 0.85 |
+
 Key findings from analysis:
 - ~63% of question pairs are duplicates (37% non-duplicates)
 - Strong correlation between lexical similarity and duplicate status
 - Question frequency is a significant differentiator
 - Train-test overlap suggests potential data leakage considerations
+- The weighted ensemble is the best overall model in the notebook
 
 ## Future Improvements
 
