@@ -3,7 +3,17 @@ Evaluation utilities for Quora Question Pairs models.
 """
 
 import numpy as np
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
+import pandas as pd
+from IPython.display import display
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    roc_auc_score,
+    confusion_matrix,
+    log_loss,
+)
 
 
 def evaluate_model(y_true, y_pred, y_pred_proba=None):
@@ -56,3 +66,53 @@ def print_evaluation_report(metrics):
     print(f"  TN: {cm[0, 0]}, FP: {cm[0, 1]}")
     print(f"  FN: {cm[1, 0]}, TP: {cm[1, 1]}")
     print("=" * 50)
+
+
+def compute_f1_and_logloss(y_true, y_pred_proba, threshold=0.5):
+    """
+    Compute F1-score and log-loss from prediction probabilities.
+
+    Args:
+        y_true: True labels
+        y_pred_proba: Predicted probabilities for class 1
+        threshold: Probability threshold for binary decision
+
+    Returns:
+        tuple: (f1_score_value, log_loss_value)
+    """
+    y_pred = (np.asarray(y_pred_proba) > threshold).astype(int)
+    return f1_score(y_true, y_pred), log_loss(y_true, y_pred_proba)
+
+
+def build_model_comparison_dataframe(model_names, f1_scores, log_losses):
+    """
+    Build a sorted model-comparison table.
+
+    Args:
+        model_names: Sequence of model names
+        f1_scores: Sequence of F1-score values
+        log_losses: Sequence of Log Loss values
+
+    Returns:
+        pandas.DataFrame: Sorted by F1-score descending
+    """
+    if not (len(model_names) == len(f1_scores) == len(log_losses)):
+        raise ValueError("model_names, f1_scores, and log_losses must have identical lengths.")
+
+    results = {
+        "Model": model_names,
+        "F1-score": f1_scores,
+        "Log Loss": log_losses,
+    }
+    results_df = pd.DataFrame(results)
+    return results_df.sort_values(by="F1-score", ascending=False).reset_index(drop=True)
+
+
+def display_model_comparison(results_df):
+    """
+    Display model-comparison table in notebook-friendly form.
+
+    Args:
+        results_df: DataFrame returned by build_model_comparison_dataframe()
+    """
+    display(results_df)

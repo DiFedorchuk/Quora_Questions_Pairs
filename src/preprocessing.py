@@ -261,3 +261,36 @@ def get_overlap_stats(df_train, df_test):
         "overlap_ratio_train": len(overlap) / len(train_questions),
         "overlap_ratio_test": len(overlap) / len(test_questions),
     }
+
+
+def ensure_wordnet_resource():
+    """Explicitly download the NLTK wordnet resource when needed."""
+    import nltk
+
+    nltk.download("wordnet")
+
+
+def get_duplicate_ratio_percent(df, label_column="is_duplicate"):
+    """
+    Compute duplicate-pair percentage for a labeled dataset.
+
+    Args:
+        df: DataFrame with duplicate labels
+        label_column: Name of binary duplicate label column
+
+    Returns:
+        float: Duplicate percentage in [0, 100]
+    """
+    return round(df[label_column].mean() * 100, 2)
+
+
+def print_duplicate_ratio(df, label_column="is_duplicate"):
+    """
+    Print duplicate-pair percentage in a consistent format.
+
+    Args:
+        df: DataFrame with duplicate labels
+        label_column: Name of binary duplicate label column
+    """
+    ratio = get_duplicate_ratio_percent(df, label_column=label_column)
+    print('Duplicate pairs(is_duplicate = 1): {}%'.format(ratio))

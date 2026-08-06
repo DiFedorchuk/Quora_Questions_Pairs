@@ -78,20 +78,27 @@ import nltk
 nltk.download('stopwords')
 ```
 
-4. Check the lightweight runner:
+4. Run the project pipeline:
 ```bash
 python run_project.py
 ```
 
 ## Usage
 
-### Lightweight runner
+### Pipeline runner
 ```bash
 python run_project.py
 python run_project.py --check-data
 python run_project.py --smoke-test
+python run_project.py --no-run --check-data --smoke-test
+python run_project.py --timeout 3600
 ```
-The script does not execute the full notebooks; it only prints the recommended order or runs a tiny feature-engineering sanity check.
+By default, `run_project.py` executes notebooks in this order:
+1. `notebooks/01_eda.ipynb`
+2. `notebooks/02_baseline.ipynb`
+3. `notebooks/03_models.ipynb`
+
+Executed notebooks are saved to `reports/executed_notebooks/`.
 
 ### Load Data and Engineer Features
 ```python
@@ -186,17 +193,17 @@ The project includes several baseline and advanced models:
 
 ### Model Metrics
 
-| Model | Log Loss | F1-score |
-| --- | --- | --- |
-| Baseline Logistic Regression | 0.42 | 0.69 |
-| Bag of Words + Logistic Regression | 0.60 | 0.61 |
-| TF-IDF + Logistic Regression | 0.62 | 0.61 |
-| BERT Embeddings + Logistic Regression | 0.57 | 0.55 |
-| LSTM | 0.50 | 0.69 |
-| XGBoost (tuned) | 0.33 | 0.76 |
-| LightGBM (tuned) | 0.33 | 0.75 |
-| Fine-tuned BERT | 0.42 | 0.81 |
-| Weighted Ensemble | 0.28 | 0.85 |
+| Model | Log Loss | F1-score | Model parameters |
+| --- | --- | --- | --- |
+| Baseline Logistic Regression | 0.42 | 0.69 | `LogisticRegression(random_state=42, solver='liblinear')`; features: `len_diff, common_words, jaccard_sim, word_match_share, max_q_freq, min_q_freq` |
+| Bag of Words + Logistic Regression | 0.60 | 0.61 | `CountVectorizer(max_features=10000, stop_words=list(stops))` + `StandardScaler(with_mean=False)` + `LogisticRegression(random_state=42, solver='liblinear', max_iter=1000)` |
+| TF-IDF + Logistic Regression | 0.62 | 0.61 | `TfidfVectorizer(max_features=10000, stop_words=list(stops))` + `StandardScaler(with_mean=False)` + `LogisticRegression(random_state=42, solver='liblinear', max_iter=1000)` |
+| BERT Embeddings + Logistic Regression | 0.57 | 0.55 | Embeddings from `distilbert-base-uncased` (`max_length=128`, embedding `batch_size=64`, chunk size `500`, sampled rows `50000`) + `LogisticRegression(random_state=42, solver='liblinear', max_iter=1000)` |
+| LSTM | 0.50 | 0.69 | Siamese LSTM with `VOCAB_SIZE=20000`, `MAX_SEQUENCE_LENGTH=30`, `EMBEDDING_DIM=100`, `HIDDEN_DIM=128`, `NUM_LAYERS=2`, `DROPOUT=0.5`, `BATCH_SIZE=64`, `N_EPOCHS=5`, optimizer `Adam` |
+| XGBoost (tuned) | 0.33 | 0.76 | `XGBClassifier(objective='binary:logistic', eval_metric='logloss', use_label_encoder=False, random_state=42, learning_rate=0.1, max_depth=5, n_estimators=300)` |
+| LightGBM (tuned) | 0.33 | 0.75 | `LGBMClassifier(objective='binary', metric='logloss', random_state=42, learning_rate=0.1, max_depth=10, n_estimators=100, num_leaves=31)` |
+| Fine-tuned BERT | 0.42 | 0.81 | `AutoModelForSequenceClassification('distilbert-base-uncased', num_labels=2)` with `MAX_LEN=128`, `TRAIN_BATCH_SIZE=16`, `EVAL_BATCH_SIZE=32`, `EPOCHS=3`, `LEARNING_RATE=2e-5`, `EPS=1e-8`, fine-tuning sample `50000` |
+| Weighted Ensemble | 0.28 | 0.85 | Weighted average of probabilities from fine-tuned BERT + tuned XGBoost + tuned LightGBM with weights `BERT=0.4`, `XGBoost=0.3`, `LightGBM=0.3`; decision threshold `0.5` |
 
 Key findings from analysis:
 - ~63% of question pairs are duplicates (37% non-duplicates)
@@ -216,12 +223,3 @@ Key findings from analysis:
 ## References
 
 - [Quora Question Pairs Dataset](https://www.kaggle.com/c/quora-question-pairs)
-- Dataset contains intellectual property from Quora
-
-## License
-
-[Specify your license here]
-
-## Contact
-
-For questions or feedback, please contact the project maintainer.

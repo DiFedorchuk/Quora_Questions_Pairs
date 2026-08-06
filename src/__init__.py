@@ -14,6 +14,9 @@ from .preprocessing import (
     get_text_stats,
     get_semantic_features,
     get_overlap_stats,
+    ensure_wordnet_resource,
+    get_duplicate_ratio_percent,
+    print_duplicate_ratio,
 )
 
 from .models import (
@@ -22,11 +25,17 @@ from .models import (
     RandomForestModel,
     GradientBoostingModel,
     SVMModel,
+    ENSEMBLE_MODEL_ORDER,
+    build_ensemble_weights,
+    save_ensemble_components,
 )
 
 from .evaluation import (
     evaluate_model,
     print_evaluation_report,
+    compute_f1_and_logloss,
+    build_model_comparison_dataframe,
+    display_model_comparison,
 )
 
 __all__ = [
@@ -42,13 +51,22 @@ __all__ = [
     "get_text_stats",
     "get_semantic_features",
     "get_overlap_stats",
+    "ensure_wordnet_resource",
+    "get_duplicate_ratio_percent",
+    "print_duplicate_ratio",
     # models
     "QuestionPairModel",
     "LogisticRegressionModel",
     "RandomForestModel",
     "GradientBoostingModel",
     "SVMModel",
+    "ENSEMBLE_MODEL_ORDER",
+    "build_ensemble_weights",
+    "save_ensemble_components",
     # evaluation
     "evaluate_model",
     "print_evaluation_report",
+    "compute_f1_and_logloss",
+    "build_model_comparison_dataframe",
+    "display_model_comparison",
 ]
