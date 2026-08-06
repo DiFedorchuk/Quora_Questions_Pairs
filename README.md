@@ -96,50 +96,6 @@ By default, `run_project.py` executes notebooks in this order:
 2. `notebooks/02_baseline.ipynb`
 3. `notebooks/03_models.ipynb`
 
-Executed notebooks are saved to `reports/executed_notebooks/`.
-
-### Load Data and Engineer Features
-```python
-from src import load_data, engineer_features, get_question_frequency_features
-
-# Load datasets
-df_train, df_test = load_data('data/quora_question_pairs_train.csv.zip', 
-                               'data/quora_question_pairs_test.csv.zip')
-
-# Engineer features
-df_train = engineer_features(df_train)
-df_train = get_question_frequency_features(df_train)
-```
-
-### Train a Model
-```python
-from src import RandomForestModel
-from sklearn.model_selection import train_test_split
-
-# Prepare features and target
-X = df_train[['q1_len', 'q2_len', 'len_diff', 'common_words', 'jaccard_sim', 'word_match_share', 'max_q_freq', 'min_q_freq']]
-y = df_train['is_duplicate']
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Train model
-model = RandomForestModel(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
-
-# Save model
-model.save('models/random_forest_model.pkl')
-```
-
-### Evaluate Model
-```python
-from src import evaluate_model, print_evaluation_report
-
-y_pred = model.predict(X_test)
-y_pred_proba = model.predict_proba(X_test)
-
-metrics = evaluate_model(y_test, y_pred, y_pred_proba)
-print_evaluation_report(metrics)
-```
 
 ## Feature Engineering
 
