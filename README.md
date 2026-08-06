@@ -119,10 +119,11 @@ The project includes several engineered features:
 
 The project includes several baseline and advanced models:
 
-- **Logistic Regression**: Fast, interpretable baseline
-- **Random Forest**: Ensemble method with feature importance
-- **Gradient Boosting**: Advanced ensemble method
-- **Support Vector Machine**: Kernel-based classifier
+- **Logistic Regression**
+- **XGBoost**
+- **LightGBM**
+- **LSTM**
+- **Fine-tuned BERT**
 
 ## Notebooks
 
