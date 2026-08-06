@@ -45,8 +45,6 @@ quora-question-pairs/
 │   ├── models.py                  # Machine learning models
 │   └── evaluation.py              # Evaluation metrics and utilities
 ├── models/                        # Saved trained models
-└── reports/                       # Analysis reports and visualizations
-```
 
 ## Dependencies
 
@@ -185,9 +183,11 @@ The project includes several baseline and advanced models:
   - Performance comparison
 
 - **03_models.ipynb**: Advanced models
-  - Random Forest and Gradient Boosting
-  - Hyperparameter tuning
-  - Final model selection and ensemble methods
+  - Baseline Models: Logistic Regression
+  - Feature Engineering: Bag of Words (BOW), TF-IDF, BERT Embedding
+  - Tree-based Models: XGBoost, LightGBM
+  - Deep Learning: LSTM, Fine-tuned BERT
+  - Ensemble: Weighted averaging of top models
 
 ## Results
 
