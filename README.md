@@ -1,8 +1,42 @@
 # 🔍 Quora Question Pairs - Duplicate Question Detection
 
-> End-to-end NLP & Machine Learning project for identifying semantically duplicate questions using the Quora Question Pairs dataset.
+https://img.shields.io/badge/Python-3.11-blue
+!ttps://img.shields.io/badge/FastAPI-Production_API-green
+![XGBoost](.shields.io/badge/XGBoost-ML-orange
+![LightGBM](https://img.shields.io/badge/LightGBM-Gradient_Boostings://img.shields.io/badge/BERT-NLP-red
 
-## ✨ Highlights
+End-to-end NLP & Machine Learning project for identifying semantically duplicate questions using the Quora Question Pairs dataset.
+
+The project combines classical NLP techniques, advanced feature engineering, Machine Learning, Deep Learning, Transformer-based architectures, and production deployment to predict whether two questions express the same intent.
+
+---
+
+# 🔗 Quick Links
+
+- 🌐 Live API: https://deployment-quora-questions-pairs.onrender.com
+- 📖 Swagger Docs: https://deployment-quora-questions-pairs.onrender.com/docs
+- ❤️ Health Check: https://deployment-quora-questions-pairs.onrender.com/health
+- 📊 Kaggle Dataset: https://www.kaggle.com/c/quora-question-pairs
+
+---
+
+# 🚀 Live Demo
+
+## 🌐 Deployed FastAPI Application
+
+### Interactive Swagger Documentation
+
+👉 https://deployment-quora-questions-pairs.onrender.com/docs
+
+### Health Check
+
+👉 https://deployment-quora-questions-pairs.onrender.com/health
+
+The project is fully deployed on Render and serves real-time duplicate-question predictions through a REST API built with FastAPI.
+
+---
+
+# ✨ Highlights
 
 - 🚀 Built a complete NLP pipeline for duplicate question detection
 - 📊 Performed exploratory data analysis (EDA) on 320K+ question pairs
@@ -10,42 +44,50 @@
 - 🧠 Trained and compared multiple ML, Deep Learning, and Transformer-based models
 - 🤖 Fine-tuned DistilBERT on 50,000 question pairs
 - 🌲 Tuned XGBoost and LightGBM models
-- 🏆 Achieved **F1-score of 0.85** using a weighted ensemble approach
+- 🏆 Achieved **F1-Score of 0.85** using a weighted ensemble approach
+- 🌐 Deployed a production-ready FastAPI inference service on Render
+- 🐳 Containerized the application using Docker
 
 ---
 
-## 📖 Project Overview
+# 📖 Project Overview
 
-The goal of this project is to determine whether two questions from Quora express the same intent and meaning.
+The goal of this project is to determine whether two questions from Quora express the same meaning and user intent.
 
-Duplicate question detection is a classic Natural Language Processing (NLP) problem that combines text understanding, semantic similarity analysis, feature engineering, and machine learning.
+Duplicate Question Detection is a classic Natural Language Processing (NLP) problem that combines:
 
-The solution combines:
-
-- 🔤 Classical NLP techniques
+- 🔤 Text Processing
 - 📈 Feature Engineering
-- 🌲 Tree-based Machine Learning Models
-- 🧠 Deep Learning Architectures
-- 🤖 Transformer-based Models (BERT)
+- 🌲 Machine Learning
+- 🧠 Deep Learning
+- 🤖 Transformer Models
 - 🎯 Ensemble Learning
 
-The target variable is:
+The final solution combines:
 
-- `1` → Duplicate Question
-- `0` → Non-Duplicate Question
+- Classical NLP Techniques
+- Handcrafted Features
+- Gradient Boosting Models
+- Transformer-Based Models
+- Weighted Ensemble Learning
+
+### Target Variable
+
+| Value | Meaning |
+|---------|---------|
+| 1 | Duplicate Question |
+| 0 | Non-Duplicate Question |
 
 ---
 
-## 💼 Business Value & Real-World Applications
+# 💼 Business Value & Real-World Applications
 
-Duplicate question detection has practical applications across many industries and products.
-
-### 🌐 Question & Answer Platforms
+## 🌐 Question & Answer Platforms
 
 - Detect duplicate questions before submission
 - Reduce content redundancy
 - Improve search quality
-- Improve user experience by directing users to existing answers
+- Improve user experience
 
 Examples:
 
@@ -54,39 +96,47 @@ Examples:
 - Reddit Communities
 - Knowledge Sharing Platforms
 
-### 🤖 Customer Support Automation
+---
 
-- Match incoming tickets with previously resolved cases
-- Suggest relevant solutions automatically
+## 🤖 Customer Support Automation
+
+- Match tickets with previously resolved cases
+- Recommend relevant solutions
 - Reduce support workload
 - Improve response times
 
 Examples:
 
-- IT Service Desk
+- Help Desk Systems
 - SaaS Customer Support
-- Help Centers
+- IT Service Management
 
-### 🔍 Enterprise Knowledge Management
+---
 
-- Identify duplicate FAQs and documentation
-- Improve internal knowledge bases
-- Enhance document retrieval systems
-- Consolidate similar knowledge articles
+## 🔍 Enterprise Knowledge Management
+
+- Detect duplicate knowledge articles
+- Improve FAQ management
+- Consolidate internal documentation
+- Improve retrieval quality
 
 Examples:
 
 - SharePoint
 - Confluence
-- Corporate Knowledge Portals
+- Internal Knowledge Bases
 
-### 🛒 E-commerce Platforms
+---
 
-- Detect duplicate product-related questions
-- Consolidate FAQs
-- Improve customer self-service experience
+## 🛒 E-Commerce Platforms
 
-### 🧠 AI-Powered Systems
+- Consolidate customer questions
+- Improve FAQ systems
+- Improve self-service support
+
+---
+
+## 🧠 AI-Powered Systems
 
 The techniques used in this project are foundational components of:
 
@@ -99,90 +149,90 @@ The techniques used in this project are foundational components of:
 
 ---
 
-## 📊 Dataset
+# 📊 Dataset
 
-### Quora Question Pairs Dataset
+## Quora Question Pairs Dataset
 
 | Metric | Value |
 |----------|----------|
 | Training Samples | 323,432 |
 | Test Samples | 80,858 |
 | Problem Type | Binary Classification |
-| Target Variable | `is_duplicate` |
+| Target Variable | is_duplicate |
 | Duplicate Rate | ~37% |
 | Dataset Source | Kaggle |
 
-🔗 https://www.kaggle.com/c/quora-question-pairs
+Dataset:
+
+https://www.kaggle.com/c/quora-question-pairs
 
 ---
 
-## 🔬 Exploratory Data Analysis
+# 🔬 Exploratory Data Analysis (EDA)
 
-### 📌 Key Findings
+## 📌 Key Findings
 
-#### Data Overlap
+### Data Overlap
 
 - 53% of unique test questions also appear in the training set
-- Potential train-test overlap should be considered during model evaluation
+- Potential train-test overlap should be considered during evaluation
 
-#### Text Characteristics
+### Text Characteristics
 
 - Average question length: ~11 words
 - Average character count: ~60 characters
 - Most questions appear only once
 - Some generic questions occur hundreds of times
 
-#### Semantic Characteristics
+### Semantic Characteristics
 
-- ❓ ~95% of questions contain question marks
+- ❓ ~95% contain question marks
 - 🔠 ~50% contain capital letters
 - 🔢 ~20% contain numbers
 
-#### Similarity Patterns
-
-Duplicate questions exhibit significantly higher similarity scores.
+### Similarity Patterns
 
 | Metric | Duplicate | Non-Duplicate |
 |----------|----------|----------|
-| Word Match Share | ~0.65 | ~0.35 |
-| Jaccard Similarity | ~0.60 | ~0.25 |
+| Word Match Share | 0.65 | 0.35 |
+| Jaccard Similarity | 0.60 | 0.25 |
 
-This confirms that lexical and semantic similarity are strong indicators of duplicate intent.
+These results indicate that lexical and semantic similarity are strong indicators of duplicate intent.
 
 ---
 
-## ⚙️ Feature Engineering
+# ⚙️ Feature Engineering
 
-Several handcrafted NLP features were created to improve model performance.
+Several handcrafted NLP features were created.
 
-### 📏 Length Features
+## 📏 Length Features
 
 - `q1_len`
 - `q2_len`
 - `len_diff`
 
-### 📝 Word-Based Features
+## 📝 Word-Based Features
 
 - `common_words`
 - `word_match_share`
 
-### 🔗 Similarity Features
+## 🔗 Similarity Features
 
 - `jaccard_sim`
 - `word_match_share`
 
-### 📈 Frequency Features
+## 📈 Frequency Features
 
 - `max_q_freq`
 - `min_q_freq`
 
-These features capture structural, lexical, and behavioral patterns between question pairs.
+These features help capture structural, lexical, and behavioral relationships between question pairs.
 
 ---
 
-## 🧠 Models Implemented
+# 🧠 Models Implemented
 
-### Traditional Machine Learning
+## Traditional Machine Learning
 
 ✅ Logistic Regression
 
@@ -194,7 +244,9 @@ These features capture structural, lexical, and behavioral patterns between ques
 
 ✅ LightGBM
 
-### Deep Learning
+---
+
+## Deep Learning
 
 ✅ Siamese LSTM
 
@@ -202,20 +254,22 @@ These features capture structural, lexical, and behavioral patterns between ques
 
 ✅ Fine-tuned DistilBERT
 
-### Ensemble Learning
+---
+
+## Ensemble Learning
 
 ✅ Weighted Ensemble
 
 ---
 
-## 🚀 Results
+# 🚀 Results
 
-### Model Performance
+## Model Performance
 
 | Model | Log Loss | F1 Score |
 |---------|---------|---------|
 | Logistic Regression | 0.42 | 0.69 |
-| Bag of Words + Logistic Regression | 0.60 | 0.61 |
+| BoW + Logistic Regression | 0.60 | 0.61 |
 | TF-IDF + Logistic Regression | 0.62 | 0.61 |
 | BERT Embeddings + Logistic Regression | 0.57 | 0.55 |
 | LSTM | 0.50 | 0.69 |
@@ -224,78 +278,60 @@ These features capture structural, lexical, and behavioral patterns between ques
 | Fine-tuned BERT | 0.42 | 0.81 |
 | 🏆 Weighted Ensemble | **0.28** | **0.85** |
 
-### 🥇 Best Model
+---
 
-The best-performing solution was a weighted ensemble combining:
+# 🥇 Best Model
 
-- 🤖 Fine-tuned BERT (40%)
+The best-performing solution was a weighted ensemble consisting of:
+
+- 🤖 Fine-tuned DistilBERT (40%)
 - 🌲 XGBoost (30%)
 - 🌲 LightGBM (30%)
 
-**Final Performance:**
+### Final Performance
 
-- F1 Score: **0.85**
-- Log Loss: **0.28**
+- ✅ F1 Score: **0.85**
+- ✅ Log Loss: **0.28**
 
-This ensemble benefited from combining deep semantic representations with powerful gradient boosting models.
-
----
-
-## 📈 Skills Demonstrated
-
-This project demonstrates practical experience in:
-
-- Natural Language Processing (NLP)
-- Text Preprocessing
-- Exploratory Data Analysis (EDA)
-- Feature Engineering
-- Machine Learning
-- Deep Learning
-- Transformer Models (BERT)
-- Ensemble Learning
-- Model Evaluation
-- Python Data Science Ecosystem
+The ensemble benefited from combining deep semantic representations with powerful gradient boosting models.
 
 ---
 
-## 📂 Project Structure
+# 🚀 FastAPI Inference API
 
-```text
-quora-question-pairs/
-│
-├── README.md
-├── requirements.txt
-│
-├── data/
-│   ├── quora_question_pairs_train.csv.zip
-│   └── quora_question_pairs_test.csv.zip
-│
-├── notebooks/
-│   ├── 01_eda.ipynb
-│   ├── 02_baseline.ipynb
-│   └── 03_models.ipynb
-│
-├── src/
-│   ├── __init__.py
-│   ├── preprocessing.py
-│   ├── models.py
-│   └── evaluation.py
-│
-└── models/
+The repository includes a production-ready FastAPI application for real-time duplicate question detection.
+
+## Live Endpoints
+
+### Swagger UI
+
+https://deployment-quora-questions-pairs.onrender.com/docs
+
+### Health Check
+
+https://deployment-quora-questions-pairs.onrender.com/health
+
+---
+
+## GET /health
+
+Returns service health status.
+
+Example:
+
+```json
+{
+  "status": "healthy"
+}
 ```
 
 ---
 
-## FastAPI Inference API
+## POST /predict
 
-This repository now includes a deployable FastAPI app at [`app/main.py`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/app/main.py).
+Predict whether two questions are semantically equivalent.
 
-### Endpoints
-
-- `GET /health` - health check
-- `POST /predict` - duplicate-question prediction
-
-Request example:
+Request:
 
 ```json
 {
@@ -304,7 +340,7 @@ Request example:
 }
 ```
 
-Response example:
+Response:
 
 ```json
 {
@@ -317,59 +353,34 @@ Response example:
 
 ---
 
-## Run Locally
+# 🏗 Production Deployment
 
-```bash
-pip install -r requirements.txt
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
+The machine learning model is deployed as a REST API using:
 
-Test:
+- FastAPI
+- Uvicorn
+- Docker
+- Render
+- XGBoost
+- LightGBM
+- Scikit-Learn
 
-```bash
-curl -X POST "http://127.0.0.1:8000/predict" \
-  -H "Content-Type: application/json" \
-  -d '{"question1":"How to lose weight fast?","question2":"What are quick ways to lose weight?"}'
-```
-
----
-
-## Deploy with Docker
-
-The project includes [`Dockerfile`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/Dockerfile) and [`.dockerignore`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/.dockerignore).
-
-Build and run:
-
-```bash
-docker build -t quora-fastapi .
-docker run -p 8000:8000 quora-fastapi
-```
-
-The Docker image installs `libgomp1`, which is required for the saved XGBoost and LightGBM models to load on Debian-based images.
-
-Then open:
-
-- `http://localhost:8000/docs` (Swagger UI)
-- `http://localhost:8000/health`
-
----
-
-## Deploy to Render/Railway/Heroku-style platforms
-
-Use the existing [`Procfile`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/Procfile):
+## Architecture
 
 ```text
-web: uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+User Request
+      │
+      ▼
+FastAPI Endpoint
+      │
+      ▼
+Feature Engineering Pipeline
+      │
+      ▼
+Weighted Ensemble Model
+      │
+      ▼
+Prediction Response
 ```
 
-Build command:
-
-```bash
-pip install -r requirements.txt
-```
-
-Start command:
-
-```bash
-uvicorn app.main:app --host 0.0.0.0 --port $PORT
-```
+The deployment exposes interactive OpenAPI documentation through Swagger UI and
