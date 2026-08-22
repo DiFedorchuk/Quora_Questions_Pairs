@@ -1,12 +1,5 @@
 # 🔍 Quora Question Pairs - Duplicate Question Detection
-
-https://img.shields.io/badge/Python-3.11-blue
-!ttps://img.shields.io/badge/FastAPI-Production_API-green
-![XGBoost](.shields.io/badge/XGBoost-ML-orange
-![LightGBM](https://img.shields.io/badge/LightGBM-Gradient_Boostings://img.shields.io/badge/BERT-NLP-red
-
 End-to-end NLP & Machine Learning project for identifying semantically duplicate questions using the Quora Question Pairs dataset.
-
 The project combines classical NLP techniques, advanced feature engineering, Machine Learning, Deep Learning, Transformer-based architectures, and production deployment to predict whether two questions express the same intent.
 
 ---
