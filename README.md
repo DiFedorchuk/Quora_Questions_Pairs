@@ -282,3 +282,94 @@ quora-question-pairs/
 │   └── evaluation.py
 │
 └── models/
+```
+
+---
+
+## FastAPI Inference API
+
+This repository now includes a deployable FastAPI app at [`app/main.py`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/app/main.py).
+
+### Endpoints
+
+- `GET /health` - health check
+- `POST /predict` - duplicate-question prediction
+
+Request example:
+
+```json
+{
+  "question1": "How can I learn Python quickly?",
+  "question2": "What is the fastest way to learn Python?"
+}
+```
+
+Response example:
+
+```json
+{
+  "is_duplicate": true,
+  "duplicate_probability": 0.812345,
+  "threshold": 0.5,
+  "model": "tuned-xgboost-lightgbm-weighted-ensemble"
+}
+```
+
+---
+
+## Run Locally
+
+```bash
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Test:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"question1":"How to lose weight fast?","question2":"What are quick ways to lose weight?"}'
+```
+
+---
+
+## Deploy with Docker
+
+The project includes [`Dockerfile`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/Dockerfile) and [`.dockerignore`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/.dockerignore).
+
+Build and run:
+
+```bash
+docker build -t quora-fastapi .
+docker run -p 8000:8000 quora-fastapi
+```
+
+The Docker image installs `libgomp1`, which is required for the saved XGBoost and LightGBM models to load on Debian-based images.
+
+Then open:
+
+- `http://localhost:8000/docs` (Swagger UI)
+- `http://localhost:8000/health`
+
+---
+
+## Deploy to Render/Railway/Heroku-style platforms
+
+Use the existing [`Procfile`](/Users/dima/Desktop/depl/Quora_Questions_Pairs/Procfile):
+
+```text
+web: uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+```
+
+Build command:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start command:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```

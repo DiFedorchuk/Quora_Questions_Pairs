@@ -3,25 +3,48 @@ Data preprocessing and feature engineering for Quora Question Pairs.
 """
 
 import re
+import warnings
 import numpy as np
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+
+
+def _load_stopwords():
+    try:
+        return set(stopwords.words("english"))
+    except LookupError:
+        import nltk
+
+        downloaded = nltk.download("stopwords", quiet=True)
+        if downloaded:
+            try:
+                return set(stopwords.words("english"))
+            except LookupError:
+                pass
+
+        warnings.warn(
+            "NLTK stopwords resource is unavailable. Falling back to sklearn English stopwords.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+        return set(ENGLISH_STOP_WORDS)
+
+
+def _load_lemmatizer():
+    import nltk
+
+    try:
+        nltk.data.find("corpora/wordnet")
+    except LookupError:
+        nltk.download("wordnet", quiet=True)
+    return WordNetLemmatizer()
+
 
 # Initialize stopwords and lemmatizer
-try:
-    stops = set(stopwords.words("english"))
-except LookupError:
-    import nltk
-    nltk.download("stopwords")
-    stops = set(stopwords.words("english"))
-
-try:
-    lemmatizer = WordNetLemmatizer()
-except LookupError:
-    import nltk
-    nltk.download("wordnet")
-    lemmatizer = WordNetLemmatizer()
+stops = _load_stopwords()
+lemmatizer = _load_lemmatizer()
 
 
 def tokenize(text):

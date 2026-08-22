@@ -30,13 +30,20 @@ from .models import (
     save_ensemble_components,
 )
 
-from .evaluation import (
-    evaluate_model,
-    print_evaluation_report,
-    compute_f1_and_logloss,
-    build_model_comparison_dataframe,
-    display_model_comparison,
-)
+try:
+    from .evaluation import (
+        evaluate_model,
+        print_evaluation_report,
+        compute_f1_and_logloss,
+        build_model_comparison_dataframe,
+        display_model_comparison,
+    )
+except ImportError:
+    evaluate_model = None
+    print_evaluation_report = None
+    compute_f1_and_logloss = None
+    build_model_comparison_dataframe = None
+    display_model_comparison = None
 
 __all__ = [
     # preprocessing
@@ -64,9 +71,4 @@ __all__ = [
     "build_ensemble_weights",
     "save_ensemble_components",
     # evaluation
-    "evaluate_model",
-    "print_evaluation_report",
-    "compute_f1_and_logloss",
-    "build_model_comparison_dataframe",
-    "display_model_comparison",
 ]
